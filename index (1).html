@@ -1,0 +1,2048 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inmunodeficiencias e Inmunoglobulinas — Recurso Clínico</title>
+  <style>
+    /* ── Reset & Variables ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --azul-oscuro:  #0a2342;
+      --azul-medio:   #1a4a7a;
+      --azul-claro:   #2d6db5;
+      --azul-suave:   #e8f1fb;
+      --teal:         #0d7c7e;
+      --teal-suave:   #e0f5f5;
+      --acento:       #e8a020;
+      --acento-suave: #fff4e0;
+      --blanco:       #ffffff;
+      --gris-f:       #f4f6f9;
+      --gris-borde:   #d0d7e2;
+      --texto:        #1a2332;
+      --texto-suave:  #4a5568;
+      --rojo-suave:   #fff0f0;
+      --rojo:         #c0392b;
+      --verde:        #1a7a4a;
+      --verde-suave:  #e6f7ee;
+      --sombra:       0 4px 24px rgba(10,35,66,0.10);
+      --sombra-hover: 0 8px 32px rgba(10,35,66,0.18);
+      --radio:        14px;
+      --radio-sm:     8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--gris-f);
+      color: var(--texto);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul-medio) 60%, var(--teal) 100%);
+      color: var(--blanco);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .header-logo svg { flex-shrink: 0; }
+
+    .header-title { line-height: 1.2; }
+    .header-title h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.3px; }
+    .header-title p  { font-size: 0.78rem; opacity: 0.75; }
+
+    nav { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    nav a {
+      color: rgba(255,255,255,0.88);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 6px 13px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    nav a:hover, nav a.active {
+      background: rgba(255,255,255,0.18);
+      color: #fff;
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, var(--azul-oscuro) 0%, var(--azul-medio) 55%, var(--teal) 100%);
+      color: var(--blanco);
+      padding: 70px 28px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(45,109,181,0.35) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(13,124,126,0.3) 0%, transparent 50%);
+    }
+
+    .hero-content { position: relative; max-width: 780px; margin: 0 auto; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .hero h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      opacity: 0.85;
+      max-width: 620px;
+      margin: 0 auto 30px;
+    }
+
+    .hero-pills {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-pill {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.8rem;
+      padding: 6px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .hero-pill:hover {
+      background: rgba(255,255,255,0.22);
+      color: #fff;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 28px 80px;
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .section-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .section-icon.blue { background: var(--azul-suave); }
+    .section-icon.teal { background: var(--teal-suave); }
+
+    .section-header h2 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--azul-oscuro);
+      line-height: 1.2;
+    }
+
+    .section-header p {
+      font-size: 0.88rem;
+      color: var(--texto-suave);
+      margin-top: 2px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 3px;
+      background: linear-gradient(90deg, var(--azul-claro), var(--teal), transparent);
+      border-radius: 2px;
+      margin-bottom: 36px;
+    }
+
+    /* ── REFERENCE CARDS ── */
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .ref-card {
+      background: var(--blanco);
+      border-radius: var(--radio);
+      box-shadow: var(--sombra);
+      border: 1px solid var(--gris-borde);
+      overflow: hidden;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .ref-card:hover {
+      box-shadow: var(--sombra-hover);
+      transform: translateY(-3px);
+    }
+
+    .ref-card-header {
+      padding: 22px 24px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .ref-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+    .ref-logo.mex  { background: linear-gradient(135deg, #006847, #ce1126); color: #fff; }
+    .ref-logo.usa  { background: linear-gradient(135deg, #002868, #bf0a30); color: #fff; }
+    .ref-logo.intl { background: linear-gradient(135deg, #1a4a7a, #0d7c7e); color: #fff; }
+
+    .ref-meta h3 { font-size: 1.05rem; font-weight: 700; color: var(--azul-oscuro); }
+    .ref-meta .ref-origen {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 3px;
+    }
+
+    .ref-card-body {
+      padding: 0 24px 20px;
+      flex: 1;
+    }
+    .ref-card-body p {
+      font-size: 0.88rem;
+      color: var(--texto-suave);
+      line-height: 1.6;
+    }
+
+    .ref-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .ref-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: var(--azul-suave);
+      color: var(--azul-claro);
+    }
+
+    .ref-card-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--gris-borde);
+      background: var(--gris-f);
+    }
+
+    .ref-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--azul-claro);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      padding: 8px 18px;
+      border: 2px solid var(--azul-claro);
+      border-radius: 8px;
+      transition: all 0.2s;
+      width: 100%;
+      justify-content: center;
+    }
+    .ref-link:hover {
+      background: var(--azul-claro);
+      color: var(--blanco);
+    }
+
+    /* ── ACCORDION ── */
+    .accordion { display: flex; flex-direction: column; gap: 12px; margin-bottom: 60px; }
+
+    .acc-item {
+      background: var(--blanco);
+      border-radius: var(--radio);
+      border: 1px solid var(--gris-borde);
+      box-shadow: var(--sombra);
+      overflow: hidden;
+    }
+
+    .acc-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.2s;
+    }
+    .acc-trigger:hover { background: var(--gris-f); }
+    .acc-trigger.open  { background: var(--azul-suave); }
+
+    .acc-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--azul-oscuro);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .acc-trigger.open .acc-num { background: var(--azul-claro); }
+
+    .acc-title {
+      flex: 1;
+    }
+    .acc-title h3 { font-size: 1rem; font-weight: 700; color: var(--azul-oscuro); }
+    .acc-title p  { font-size: 0.8rem; color: var(--texto-suave); margin-top: 2px; }
+
+    .acc-arrow {
+      font-size: 1.1rem;
+      color: var(--azul-claro);
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+    .acc-trigger.open .acc-arrow { transform: rotate(180deg); }
+
+    .acc-body {
+      display: none;
+      padding: 0 24px 28px;
+      animation: fadeDown 0.25s ease;
+    }
+    .acc-body.open { display: block; }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── CONTENT STYLES ── */
+    .content-prose p {
+      margin-bottom: 14px;
+      color: var(--texto-suave);
+      font-size: 0.93rem;
+    }
+    .content-prose p strong { color: var(--texto); }
+
+    .content-prose h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--azul-oscuro);
+      margin: 18px 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 14px 18px;
+      background: var(--azul-suave);
+      border-radius: 10px;
+      border-left: 4px solid var(--azul-claro);
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--azul-claro);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-content strong { display: block; font-size: 0.88rem; color: var(--azul-oscuro); }
+    .step-content span   { font-size: 0.83rem; color: var(--texto-suave); }
+
+    /* ── ROUTE CARDS ── */
+    .route-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .route-card {
+      border-radius: 12px;
+      padding: 18px;
+      border: 2px solid transparent;
+    }
+    .route-card.iv   { background: var(--teal-suave);   border-color: var(--teal); }
+    .route-card.im   { background: var(--acento-suave); border-color: var(--acento); }
+    .route-card.id   { background: var(--rojo-suave);   border-color: #e0a0a0; }
+    .route-card.sc   { background: var(--verde-suave);  border-color: var(--verde); }
+
+    .route-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .route-card.iv .route-label { color: var(--teal); }
+    .route-card.im .route-label { color: #a06010; }
+    .route-card.id .route-label { color: var(--rojo); }
+    .route-card.sc .route-label { color: var(--verde); }
+
+    .route-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+    .route-card p  { font-size: 0.82rem; color: var(--texto-suave); line-height: 1.55; }
+
+    .pros-cons {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 10px;
+    }
+
+    .pro, .con {
+      display: flex;
+      gap: 6px;
+      font-size: 0.8rem;
+      align-items: flex-start;
+    }
+    .pro { color: var(--verde); }
+    .con { color: var(--rojo); }
+    .pro::before { content: '✔'; font-size: 0.7rem; margin-top: 2px; flex-shrink: 0; }
+    .con::before { content: '✘'; font-size: 0.7rem; margin-top: 2px; flex-shrink: 0; }
+
+    /* ── MECHANISM GRID ── */
+    .mech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .mech-card {
+      background: var(--gris-f);
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid var(--gris-borde);
+      text-align: center;
+    }
+    .mech-icon { font-size: 2rem; margin-bottom: 8px; }
+    .mech-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--azul-oscuro); margin-bottom: 6px; }
+    .mech-card p  { font-size: 0.8rem; color: var(--texto-suave); }
+
+    /* ── DOSE CALCULATOR ── */
+    .calc-wrapper {
+      background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul-medio) 70%, var(--teal) 100%);
+      border-radius: var(--radio);
+      padding: 32px;
+      color: var(--blanco);
+      margin: 16px 0;
+    }
+
+    .calc-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .calc-header-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .calc-header h3 { font-size: 1.2rem; font-weight: 700; }
+    .calc-header p  { font-size: 0.82rem; opacity: 0.75; margin-top: 2px; }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 600px) { .calc-grid { grid-template-columns: 1fr; } }
+
+    .calc-field label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      opacity: 0.8;
+      margin-bottom: 7px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .calc-field input,
+    .calc-field select {
+      width: 100%;
+      padding: 11px 14px;
+      background: rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.93rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .calc-field input::placeholder { color: rgba(255,255,255,0.45); }
+    .calc-field input:focus,
+    .calc-field select:focus { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.15); }
+    .calc-field select option { background: var(--azul-medio); color: #fff; }
+
+    .calc-btn {
+      width: 100%;
+      padding: 13px;
+      background: var(--acento);
+      color: var(--azul-oscuro);
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.3px;
+    }
+    .calc-btn:hover { background: #f0b030; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.2); }
+
+    .calc-result {
+      margin-top: 24px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: none;
+      animation: fadeDown 0.3s ease;
+    }
+    .calc-result.show { display: block; }
+
+    .calc-result h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.7;
+      margin-bottom: 16px;
+    }
+
+    .calc-result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+    }
+
+    .calc-result-item {
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .calc-result-item label {
+      display: block;
+      font-size: 0.72rem;
+      opacity: 0.65;
+      margin-bottom: 5px;
+    }
+
+    .calc-result-item .val {
+      font-size: 1.3rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .calc-result-item .unit {
+      font-size: 0.72rem;
+      opacity: 0.7;
+    }
+
+    .calc-note {
+      margin-top: 14px;
+      font-size: 0.78rem;
+      opacity: 0.65;
+      line-height: 1.55;
+    }
+
+    /* ── ADVERSE EFFECTS ── */
+    .ae-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .ae-card {
+      border-radius: 12px;
+      padding: 18px;
+      border-left: 4px solid;
+    }
+    .ae-card.leve     { background: var(--verde-suave); border-color: var(--verde); }
+    .ae-card.moderado { background: var(--acento-suave); border-color: var(--acento); }
+    .ae-card.grave    { background: var(--rojo-suave); border-color: var(--rojo); }
+
+    .ae-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 2px 9px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+    .ae-card.leve .ae-badge     { background: var(--verde);   color: #fff; }
+    .ae-card.moderado .ae-badge { background: var(--acento);  color: var(--azul-oscuro); }
+    .ae-card.grave .ae-badge    { background: var(--rojo);    color: #fff; }
+
+    .ae-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; }
+    .ae-card ul { padding-left: 16px; }
+    .ae-card ul li { font-size: 0.83rem; color: var(--texto-suave); margin-bottom: 4px; }
+
+    .prevention-box {
+      background: var(--teal-suave);
+      border: 1px solid var(--teal);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-top: 16px;
+    }
+    .prevention-box h4 { font-size: 0.9rem; font-weight: 700; color: var(--teal); margin-bottom: 10px; }
+    .prevention-box ul { padding-left: 16px; }
+    .prevention-box ul li { font-size: 0.83rem; color: var(--texto-suave); margin-bottom: 5px; }
+
+    /* ── BRANDS TABLE ── */
+    .brand-table-wrap { overflow-x: auto; margin: 16px 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    thead tr { background: var(--azul-oscuro); color: #fff; }
+    thead th {
+      padding: 12px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.3px;
+    }
+    tbody tr { border-bottom: 1px solid var(--gris-borde); transition: background 0.15s; }
+    tbody tr:hover { background: var(--azul-suave); }
+    tbody tr:nth-child(even) { background: var(--gris-f); }
+    tbody tr:nth-child(even):hover { background: var(--azul-suave); }
+    td { padding: 11px 14px; color: var(--texto-suave); vertical-align: top; }
+    td strong { color: var(--texto); }
+
+    .badge-mx  { display: inline-block; background: #006847; color: #fff; font-size: 0.68rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+    .badge-int { display: inline-block; background: var(--azul-claro); color: #fff; font-size: 0.68rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+    .badge-sc  { display: inline-block; background: var(--teal); color: #fff; font-size: 0.68rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+
+    .warning-box {
+      background: var(--rojo-suave);
+      border: 1px solid #f0c0c0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 16px;
+    }
+    .warning-box h4 { font-size: 0.88rem; font-weight: 700; color: var(--rojo); margin-bottom: 8px; }
+    .warning-box p  { font-size: 0.83rem; color: var(--texto-suave); }
+
+    .info-box {
+      background: var(--azul-suave);
+      border: 1px solid #b0c8e8;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 16px;
+    }
+    .info-box h4 { font-size: 0.88rem; font-weight: 700; color: var(--azul-medio); margin-bottom: 8px; }
+    .info-box p, .info-box ul { font-size: 0.83rem; color: var(--texto-suave); }
+    .info-box ul { padding-left: 16px; }
+    .info-box ul li { margin-bottom: 4px; }
+
+    /* ── INDICATIONS TABLE ── */
+    .ind-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    .ind-table thead tr { background: var(--teal); }
+    .ind-table thead th { padding: 11px 14px; text-align: left; color: #fff; font-weight: 600; }
+    .ind-table tbody tr { border-bottom: 1px solid var(--gris-borde); }
+    .ind-table tbody tr:hover { background: var(--teal-suave); }
+    .ind-table td { padding: 11px 14px; color: var(--texto-suave); }
+    .ind-table td:first-child { font-weight: 600; color: var(--texto); }
+
+    /* ── DIAGRAM ── */
+    .diagram {
+      background: var(--gris-f);
+      border: 1px solid var(--gris-borde);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 16px 0;
+      text-align: center;
+    }
+
+    .flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .flow-step {
+      background: var(--blanco);
+      border: 2px solid var(--azul-claro);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--azul-oscuro);
+      text-align: center;
+      min-width: 110px;
+    }
+
+    .flow-arrow {
+      font-size: 1.2rem;
+      color: var(--azul-claro);
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--azul-oscuro);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 32px 28px;
+      font-size: 0.82rem;
+    }
+    footer strong { color: rgba(255,255,255,0.95); }
+    footer p + p { margin-top: 8px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .header-inner { padding: 12px 16px; }
+      main { padding: 32px 16px 60px; }
+      nav { display: none; }
+      .hero { padding: 50px 16px 60px; }
+      .ref-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── SCROLL TO TOP ── */
+    #scrollTop {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      background: var(--azul-oscuro);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      transition: background 0.2s;
+    }
+    #scrollTop.show { display: flex; }
+    #scrollTop:hover { background: var(--azul-claro); }
+
+    /* ── TABS ── */
+    .tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .tab-btn {
+      padding: 7px 16px;
+      border-radius: 8px;
+      border: 1.5px solid var(--gris-borde);
+      background: var(--blanco);
+      color: var(--texto-suave);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: var(--azul-claro);
+      color: #fff;
+      border-color: var(--azul-claro);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight {
+      background: linear-gradient(135deg, var(--azul-suave), var(--teal-suave));
+      border: 1px solid var(--gris-borde);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 14px 0;
+    }
+    .highlight strong { color: var(--azul-oscuro); }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header>
+  <div class="header-inner">
+    <div class="header-logo">
+      <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="38" height="38" rx="10" fill="rgba(255,255,255,0.12)"/>
+        <path d="M19 7v24M7 19h24" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="19" cy="19" r="5" fill="rgba(255,255,255,0.2)" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="19" cy="7" r="2.5" fill="#e8a020"/>
+        <circle cx="19" cy="31" r="2.5" fill="#e8a020"/>
+        <circle cx="7" cy="19" r="2.5" fill="#e8a020"/>
+        <circle cx="31" cy="19" r="2.5" fill="#e8a020"/>
+      </svg>
+      <div class="header-title">
+        <h1>Inmunología Clínica</h1>
+        <p>Recurso de consulta rápida para médicos</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#referencias">Referencias</a>
+      <a href="#terapia">Terapia IVIG</a>
+      <a href="#calculadora">Calculadora</a>
+      <a href="#marcas">Marcas</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Herramienta Clínica de Referencia</div>
+    <h2>Inmunodeficiencias e&nbsp;Inmunoglobulinas Intravenosas</h2>
+    <p>Información formal y actualizada para la consulta médica de primera línea sobre diagnóstico, tratamiento con IVIG y recursos bibliográficos internacionales.</p>
+    <div class="hero-pills">
+      <a href="#referencias" class="hero-pill">&#128270; Referencias bibliográficas</a>
+      <a href="#terapia" class="hero-pill">&#128137; Terapia IVIG</a>
+      <a href="#calculadora" class="hero-pill">&#9881;&#65039; Calculadora de dosis</a>
+      <a href="#marcas" class="hero-pill">&#128200; Marcas en México</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<main>
+
+  <!-- ════════════ APARTADO 1 — REFERENCIAS ════════════ -->
+  <section id="referencias">
+    <div class="section-header">
+      <div class="section-icon blue">&#128218;</div>
+      <div>
+        <h2>Apartado 1 &mdash; Referencias Bibliográficas</h2>
+        <p>Fuentes oficiales y de alto rigor científico para la consulta de información sobre inmunodeficiencias primarias y secundarias</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="ref-grid">
+
+      <!-- CARD 1: FUMEMI -->
+      <div class="ref-card">
+        <div class="ref-card-header">
+          <div class="ref-logo mex">FU</div>
+          <div class="ref-meta">
+            <h3>FUMEMI</h3>
+            <div class="ref-origen" style="color:#006847;">&#127474;&#127485; México · Fundación Nacional</div>
+          </div>
+        </div>
+        <div class="ref-card-body">
+          <p>
+            La <strong>Fundación Mexicana para las Enfermedades Inmunológicas (FUMEMI)</strong> es la principal organización sin fines de lucro en México dedicada al diagnóstico, atención y difusión de información sobre las inmunodeficiencias primarias.
+          </p>
+          <p>
+            Ofrece guías clínicas adaptadas al contexto mexicano, información para pacientes y familias, directorio de especialistas certificados, y material de apoyo para médicos de primer contacto. Es el referente nacional para casos de inmunodeficiencias en el sistema de salud público y privado de México.
+          </p>
+          <div class="ref-tags">
+            <span class="ref-tag">Guías clínicas MX</span>
+            <span class="ref-tag">Directorio médico</span>
+            <span class="ref-tag">Pacientes y familias</span>
+            <span class="ref-tag">Español</span>
+          </div>
+        </div>
+        <div class="ref-card-footer">
+          <a href="https://fumeni.org.mx" target="_blank" rel="noopener" class="ref-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Visitar fumeni.org.mx
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD 2: Jeffrey Modell Foundation -->
+      <div class="ref-card">
+        <div class="ref-card-header">
+          <div class="ref-logo usa">JM</div>
+          <div class="ref-meta">
+            <h3>Jeffrey Modell Foundation</h3>
+            <div class="ref-origen" style="color:#002868;">&#127482;&#127480; EE.UU. · Fundación Internacional</div>
+          </div>
+        </div>
+        <div class="ref-card-body">
+          <p>
+            La <strong>Jeffrey Modell Foundation (JMF)</strong> es una organización internacional con sede en Nueva York, EE.UU., fundada en 1987 en memoria de Jeffrey Modell, paciente con inmunodeficiencia primaria. Es una de las redes más grandes del mundo en investigación y concientización sobre inmunodeficiencias primarias (IDP).
+          </p>
+          <p>
+            La plataforma <strong>info4pi.org</strong> concentra recursos para médicos y pacientes: herramientas diagnósticas, los <em>"10 Warning Signs of PI"</em> internacionalmente reconocidos, atlas de enfermedades, criterios diagnósticos, programas de educación médica y directorios de centros especializados en más de 80 países.
+          </p>
+          <div class="ref-tags">
+            <span class="ref-tag">10 Señales de alerta</span>
+            <span class="ref-tag">Atlas diagnóstico</span>
+            <span class="ref-tag">80+ países</span>
+            <span class="ref-tag">Inglés / Español</span>
+          </div>
+        </div>
+        <div class="ref-card-footer">
+          <a href="https://www.info4pi.org" target="_blank" rel="noopener" class="ref-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Visitar info4pi.org
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD 3: Immune Deficiency Foundation -->
+      <div class="ref-card">
+        <div class="ref-card-header">
+          <div class="ref-logo intl">IDF</div>
+          <div class="ref-meta">
+            <h3>Immune Deficiency Foundation</h3>
+            <div class="ref-origen" style="color:#1a4a7a;">&#127482;&#127480; EE.UU. · Organización Científica</div>
+          </div>
+        </div>
+        <div class="ref-card-body">
+          <p>
+            La <strong>Immune Deficiency Foundation (IDF)</strong>, fundada en 1980 con sede en Maryland, EE.UU., es la principal organización nacional de pacientes con inmunodeficiencias primarias en América del Norte. Promueve la investigación médica, la educación y la prestación de servicios a pacientes.
+          </p>
+          <p>
+            Su portal <strong>primaryimmune.org</strong> ofrece guías clínicas avaladas por expertos, materiales de educación continua para médicos, recursos de diagnóstico precoz, información detallada sobre más de 400 tipos de IDP reconocidas, y el acceso al <em>IDF Patient Registry</em>, uno de los registros de IDP más completos del mundo.
+          </p>
+          <div class="ref-tags">
+            <span class="ref-tag">+400 tipos de IDP</span>
+            <span class="ref-tag">Registro de pacientes</span>
+            <span class="ref-tag">Guías para médicos</span>
+            <span class="ref-tag">Inglés</span>
+          </div>
+        </div>
+        <div class="ref-card-footer">
+          <a href="https://primaryimmune.org/" target="_blank" rel="noopener" class="ref-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Visitar primaryimmune.org
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════ APARTADO 2 — TERAPIA IVIG ════════════ -->
+  <section id="terapia">
+    <div class="section-header">
+      <div class="section-icon teal">&#128137;</div>
+      <div>
+        <h2>Apartado 2 &mdash; Terapia de Inmunoglobulinas Intravenosas (IVIG)</h2>
+        <p>Información clínica estructurada: mecanismos, indicaciones, posología, efectos adversos y marcas disponibles</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="accordion">
+
+      <!-- ───── 1. DESCRIPCIÓN ───── -->
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggle(this)" aria-expanded="false">
+          <div class="acc-num">1</div>
+          <div class="acc-title">
+            <h3>Descripción — ¿Qué es la terapia con IVIG?</h3>
+            <p>Definición, características y composición del producto</p>
+          </div>
+          <span class="acc-arrow">&#8964;</span>
+        </button>
+        <div class="acc-body">
+          <div class="content-prose">
+            <p>
+              La <strong>terapia con inmunoglobulinas intravenosas (IVIG)</strong> consiste en la administración por vía endovenosa de preparados concentrados de <strong>inmunoglobulinas G (IgG)</strong> purificadas, obtenidas del plasma reunido de miles de donantes sanos (típicamente entre 1,000 y 50,000 donantes por lote).
+            </p>
+            <p>
+              El producto contiene principalmente IgG (&gt;95%), con trazas de IgA e IgM, y una extensa diversidad de especificidades de anticuerpos que refleja la exposición inmunológica colectiva de los donantes a patógenos, autoantígenos y otros estímulos antigénicos. Esta diversidad es precisamente lo que le confiere su amplio espectro de acción tanto en terapia sustitutiva como inmunomoduladora.
+            </p>
+
+            <h4>&#128203; Presentaciones disponibles</h4>
+            <div class="highlight">
+              <p>Las formulaciones se presentan generalmente como <strong>soluciones al 5% o 10% (peso/volumen)</strong> listas para infundir, o en forma liofilizada para reconstitución. Las presentaciones al 10% permiten administrar la misma dosis en menor volumen y tiempo.</p>
+            </div>
+
+            <h4>&#127775; Indicaciones principales</h4>
+            <p>Existen dos grandes categorías de uso:</p>
+            <ul style="padding-left: 20px; color: var(--texto-suave); font-size: 0.9rem;">
+              <li style="margin-bottom: 6px;"><strong>Terapia de reemplazo (sustitutiva):</strong> en inmunodeficiencias primarias o secundarias donde el paciente no produce suficientes anticuerpos propios.</li>
+              <li style="margin-bottom: 6px;"><strong>Terapia inmunomoduladora (altas dosis):</strong> en enfermedades autoinmunes, inflamatorias y neurológicas, donde los anticuerpos administrados modulan la respuesta inmune patológica.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ───── 2. OBTENCIÓN ───── -->
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggle(this)" aria-expanded="false">
+          <div class="acc-num">2</div>
+          <div class="acc-title">
+            <h3>Obtención — Procesamiento del plasma y purificación</h3>
+            <p>Del donante al frasco: método de fraccionamiento de Cohn y pasos de seguridad viral</p>
+          </div>
+          <span class="acc-arrow">&#8964;</span>
+        </button>
+        <div class="acc-body">
+          <div class="content-prose">
+            <p>La producción de IVIG es un proceso industrial altamente regulado que garantiza la seguridad, pureza y eficacia del producto final.</p>
+
+            <div class="diagram">
+              <p style="font-size:0.8rem; color:var(--texto-suave); margin-bottom:16px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Proceso de producción — Diagrama de flujo</p>
+              <div class="flow">
+                <div class="flow-step">&#129387; Selección y cribado del donante</div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-step">&#9879;&#65039; Plasmaféresis o fraccionamiento</div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-step">&#128197; Mezcla de plasma (pool)</div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-step">&#9878;&#65039; Fraccionamiento por etanol (Cohn)</div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-step">&#128300; Purificación cromatográfica</div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-step">&#128737;&#65039; Inactivación/remoción viral</div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-step">&#128203; Control de calidad y formulación</div>
+              </div>
+            </div>
+
+            <div class="steps">
+              <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <strong>Selección y cribado de donantes</strong>
+                  <span>Solo se acepta plasma de donantes sanos con serología negativa para VIH, VHB, VHC, sífilis y otros agentes. Los donantes son sometidos a interrogatorio epidemiológico y pruebas de laboratorio estandarizadas.</span>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <strong>Conformación del pool</strong>
+                  <span>Se mezcla plasma de miles de donantes para garantizar la diversidad de especificidades de IgG y diluir posibles contaminantes individuales. Los lotes típicos provienen de 1,000–50,000 donantes.</span>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <strong>Fraccionamiento de Cohn–Oncley</strong>
+                  <span>Método clásico de precipitación en frío con etanol en concentraciones crecientes y condiciones controladas de pH y temperatura. La fracción II y III contiene las inmunoglobulinas. Modificaciones modernas incluyen el método de Kistler–Nitschmann.</span>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <strong>Purificación cromatográfica</strong>
+                  <span>Cromatografía de intercambio iónico, de afinidad y/o exclusión por tamaño para eliminar proteínas contaminantes, IgA, IgM, activadores del complemento y anticomplemento, kalikreína y otros factores procoagulantes.</span>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                  <strong>Inactivación y remoción viral (múltiples pasos)</strong>
+                  <span>Tratamiento con solvente/detergente (S/D) para virus con envoltura lipídica; nanofiltración (15–20 nm) para eliminar partículas virales de mayor tamaño; pasteurización o incubación a pH bajo (pH 4) como pasos complementarios.</span>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">6</div>
+                <div class="step-content">
+                  <strong>Formulación y control de calidad</strong>
+                  <span>El producto se ajusta a concentración (5% o 10%), se añaden estabilizantes (glicina, glucosa, prolina, maltosa) y se establece el pH (4.0–7.0 según fabricante). Lotes liberados solo tras superar controles de pureza, potencia, seguridad viral y pirógenos.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ───── 3. VÍAS DE ADMINISTRACIÓN ───── -->
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggle(this)" aria-expanded="false">
+          <div class="acc-num">3</div>
+          <div class="acc-title">
+            <h3>Vías de Administración</h3>
+            <p>Intravenosa (principal), subcutánea, intramuscular e intradérmica — ventajas y desventajas</p>
+          </div>
+          <span class="acc-arrow">&#8964;</span>
+        </button>
+        <div class="acc-body">
+          <div class="content-prose">
+            <p>Las inmunoglobulinas pueden administrarse por distintas vías según el contexto clínico, la urgencia y las características del paciente.</p>
+
+            <div class="route-grid">
+
+              <!-- IV -->
+              <div class="route-card iv">
+                <div class="route-label">Via Principal</div>
+                <h4>&#128137; Intravenosa (IVIG)</h4>
+                <p>Administrada directamente en vena periférica o central mediante acceso venoso. Se infunde a velocidad controlada (inicio: 0.5–1 mg/kg/min; incremento progresivo). Duración típica: 2–6 horas. Requiere monitorización de constantes vitales durante la infusión en unidad hospitalaria o clínica especializada.</p>
+                <div class="pros-cons">
+                  <div class="pro">Rapidez de acción y biodisponibilidad del 100%</div>
+                  <div class="pro">Permite dosis elevadas en un solo ciclo</div>
+                  <div class="pro">Indispensable en situaciones agudas (PTI, Kawasaki, SGB)</div>
+                  <div class="pro">Niveles séricos predecibles e inmediatos</div>
+                  <div class="con">Requiere acceso venoso y supervisión médica</div>
+                  <div class="con">Mayor riesgo de reacciones sistémicas agudas</div>
+                  <div class="con">Infusión hospitalaria (costo logístico)</div>
+                </div>
+              </div>
+
+              <!-- SC -->
+              <div class="route-card sc">
+                <div class="route-label">Via Alternativa</div>
+                <h4>&#128200; Subcutánea (SCIG)</h4>
+                <p>Administración en tejido subcutáneo del abdomen, muslos o brazos mediante infusor portátil. Permite uso domiciliario. Dosis semanales o cada 2 semanas, en menores volúmenes. Niveles séricos más estables y constantes que con IVIG.</p>
+                <div class="pros-cons">
+                  <div class="pro">Administración domiciliaria: mayor autonomía del paciente</div>
+                  <div class="pro">Niveles de IgG más estables ("sin valles")</div>
+                  <div class="pro">Menor frecuencia de reacciones sistémicas</div>
+                  <div class="pro">Ideal para mantenimiento crónico en IDP</div>
+                  <div class="con">Solo para uso de mantenimiento, no urgencias agudas</div>
+                  <div class="con">Requiere entrenamiento del paciente/cuidador</div>
+                  <div class="con">Reacciones locales (eritema, induración) frecuentes</div>
+                </div>
+              </div>
+
+              <!-- IM -->
+              <div class="route-card im">
+                <div class="route-label">Via Adicional (histórica)</div>
+                <h4>&#128279; Intramuscular (IMIG)</h4>
+                <p>Inyección directa en músculo (glúteo, deltoides). Fórmulas con alta concentración de IgG. Uso muy limitado en la actualidad; reservado para profilaxis puntual o recursos limitados. Volumen máximo por inyección: 5 mL.</p>
+                <div class="pros-cons">
+                  <div class="pro">Sin necesidad de acceso venoso</div>
+                  <div class="pro">Costo bajo; fácil almacenamiento</div>
+                  <con class="con">Muy dolorosa; absorción lenta e irregular</con>
+                  <div class="con">Volumen limitado: imposible para dosis de reemplazo estándar</div>
+                  <div class="con">Riesgo de hematoma e infección local</div>
+                  <div class="con">Biodisponibilidad variable; picos de IgG imprevisibles</div>
+                  <div class="con">No apta para inmunomodulación a altas dosis</div>
+                </div>
+              </div>
+
+              <!-- ID -->
+              <div class="route-card id">
+                <div class="route-label">Via Adicional (experimental)</div>
+                <h4>&#128203; Intradérmica (IDIG)</h4>
+                <p>Inyección en la dermis con agujas muy finas. En investigación para uso domiciliario con dispositivos especiales. No está aprobada como estándar clínico. Volúmenes extremadamente pequeños por sitio (&lt;0.1 mL).</p>
+                <div class="pros-cons">
+                  <div class="pro">Potencial para administración en microdosis domiciliarias</div>
+                  <div class="pro">Reacciones sistémicas mínimas (experimental)</div>
+                  <div class="con">Sin aprobación regulatoria para uso rutinario</div>
+                  <div class="con">Técnica muy demandante; múltiples sitios necesarios</div>
+                  <div class="con">Evidencia clínica insuficiente</div>
+                  <div class="con">Volumen útil por sesión extremadamente limitado</div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="info-box">
+              <h4>&#128221; Protocolo estándar de infusión IV</h4>
+              <ul>
+                <li><strong>Premedicación:</strong> paracetamol 500–1000 mg y/o difenhidramina 25–50 mg v.o./i.v. 30 min antes si hay antecedente de reacciones previas.</li>
+                <li><strong>Hidratación:</strong> asegurar hidratación adecuada antes y durante la infusión (previene cefalea y daño renal).</li>
+                <li><strong>Velocidad inicial:</strong> 0.5 mg/kg/min los primeros 15–30 min; se puede incrementar cada 15–30 min si tolerancia adecuada.</li>
+                <li><strong>Velocidad máxima:</strong> generalmente 4–8 mg/kg/min según el fabricante y el paciente.</li>
+                <li><strong>Monitorización:</strong> signos vitales basales y a los 15, 30 y 60 min de inicio, luego cada hora.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ───── 4. MECANISMOS DE ACCIÓN ───── -->
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggle(this)" aria-expanded="false">
+          <div class="acc-num">4</div>
+          <div class="acc-title">
+            <h3>Mecanismos de Acción</h3>
+            <p>Efectos inmunomoduladores, antiinflamatorios y de reemplazo a nivel molecular y celular</p>
+          </div>
+          <span class="acc-arrow">&#8964;</span>
+        </button>
+        <div class="acc-body">
+          <div class="content-prose">
+            <div class="mech-grid">
+              <div class="mech-card">
+                <div class="mech-icon">&#128737;&#65039;</div>
+                <h4>Neutralización directa</h4>
+                <p>Los anticuerpos presentes en el preparado neutralizan toxinas bacterianas, virus y superantígenos, impidiendo su interacción con receptores celulares.</p>
+              </div>
+              <div class="mech-card">
+                <div class="mech-icon">&#128257;</div>
+                <h4>Bloqueo de receptores Fc&#947;</h4>
+                <p>Las IgG exógenas saturan los receptores Fc&#947;RII/III de macrófagos, células NK y células presentadoras de antígenos, bloqueando la fagocitosis mediada por anticuerpos (efecto clave en PTI y anemia hemolítica autoinmune).</p>
+              </div>
+              <div class="mech-card">
+                <div class="mech-icon">&#9881;&#65039;</div>
+                <h4>Regulación del FcRn</h4>
+                <p>La sobrecarga de IgG exógenas satura el receptor neonatal Fc (FcRn), aumentando el catabolismo de los anticuerpos patógenos endógenos (ej. en miastenia gravis o pénfigo).</p>
+              </div>
+              <div class="mech-card">
+                <div class="mech-icon">&#128200;</div>
+                <h4>Efectos anti-idiotipo</h4>
+                <p>Los anticuerpos de la IVIG contienen anticuerpos anti-idiotipo que neutralizan autoanticuerpos patogénicos endógenos, interrumpiendo la cascada inmune autorreactiva.</p>
+              </div>
+              <div class="mech-card">
+                <div class="mech-icon">&#128162;</div>
+                <h4>Modulación del complemento</h4>
+                <p>Inhiben la activación del complemento al capturar fragmentos activos (C3b, C4b) y al bloquear la formación del complejo de ataque a membrana (CAM), reduciendo el daño tisular mediado por complemento.</p>
+              </div>
+              <div class="mech-card">
+                <div class="mech-icon">&#129504;</div>
+                <h4>Inmunomodulación de células T y B</h4>
+                <p>Inhiben la proliferación y diferenciación de linfocitos autorreactivos. Inducen apoptosis de células B autoinmunes y modulan la actividad de células T reguladoras (T-reg).</p>
+              </div>
+              <div class="mech-card">
+                <div class="mech-icon">&#128293;</div>
+                <h4>Regulación de citocinas</h4>
+                <p>Reducen la producción de citocinas proinflamatorias (TNF-&#945;, IL-1&#946;, IL-6) y aumentan los niveles de IL-1Ra (antagonista del receptor de IL-1) y TGF-&#946;.</p>
+              </div>
+              <div class="mech-card">
+                <div class="mech-icon">&#128268;</div>
+                <h4>Modulación de células dendríticas</h4>
+                <p>Disminuyen la maduración y la capacidad presentadora de antígenos de las células dendríticas, reduciendo la activación de células T autorreactivas en la periferia.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ───── 5. INDICACIONES Y CALCULADORA ───── -->
+      <div class="acc-item" id="calculadora">
+        <button class="acc-trigger" onclick="toggle(this)" aria-expanded="false">
+          <div class="acc-num">5</div>
+          <div class="acc-title">
+            <h3>Indicaciones, Posología y Calculadora de Dosis</h3>
+            <p>A quiénes se administra, dosis estándar por indicación y calculadora interactiva</p>
+          </div>
+          <span class="acc-arrow">&#8964;</span>
+        </button>
+        <div class="acc-body">
+          <div class="content-prose">
+
+            <h4>&#127891; Indicaciones principales y posología</h4>
+
+            <div class="brand-table-wrap">
+              <table class="ind-table">
+                <thead>
+                  <tr>
+                    <th>Indicación</th>
+                    <th>Dosis estándar</th>
+                    <th>Frecuencia</th>
+                    <th>Nivel de evidencia</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Inmunodeficiencia primaria (IDP)</td>
+                    <td>400–600 mg/kg</td>
+                    <td>Cada 3–4 semanas</td>
+                    <td>A (primera línea)</td>
+                  </tr>
+                  <tr>
+                    <td>Inmunodeficiencia secundaria severa</td>
+                    <td>400 mg/kg</td>
+                    <td>Cada 3–4 semanas</td>
+                    <td>B</td>
+                  </tr>
+                  <tr>
+                    <td>Enfermedad de Kawasaki</td>
+                    <td>2,000 mg/kg</td>
+                    <td>Dosis única (+ AAS)</td>
+                    <td>A (primera línea)</td>
+                  </tr>
+                  <tr>
+                    <td>PTI aguda (niños/adultos)</td>
+                    <td>1,000 mg/kg/día × 1–2 días</td>
+                    <td>Ciclo único; repetir según respuesta</td>
+                    <td>A</td>
+                  </tr>
+                  <tr>
+                    <td>Síndrome de Guillain-Barré</td>
+                    <td>0.4 g/kg/día × 5 días<br><em>ó</em> 1 g/kg/día × 2 días</td>
+                    <td>Ciclo único en fase aguda</td>
+                    <td>A (equivalente a plasmaféresis)</td>
+                  </tr>
+                  <tr>
+                    <td>CIDP (dosis de inicio)</td>
+                    <td>2,000 mg/kg (carga)</td>
+                    <td>Luego 1,000 mg/kg c/3 sem</td>
+                    <td>A</td>
+                  </tr>
+                  <tr>
+                    <td>Miastenia gravis (crisis/exacerbación)</td>
+                    <td>400 mg/kg/día × 5 días</td>
+                    <td>Ciclo único; repetir si necesario</td>
+                    <td>B</td>
+                  </tr>
+                  <tr>
+                    <td>Dermatomiositis / Polimiositis</td>
+                    <td>400 mg/kg/día × 5 días</td>
+                    <td>Cada 4–6 semanas según respuesta</td>
+                    <td>B</td>
+                  </tr>
+                  <tr>
+                    <td>Sepsis neonatal (coadyuvante)</td>
+                    <td>500–750 mg/kg</td>
+                    <td>1–3 dosis</td>
+                    <td>C (uso discutido)</td>
+                  </tr>
+                  <tr>
+                    <td>Trasplante de médula ósea (profilaxis)</td>
+                    <td>400–500 mg/kg</td>
+                    <td>Semanal / quincenal según protocolo</td>
+                    <td>B</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="info-box" style="margin-bottom: 20px;">
+              <h4>&#128161; Ajuste de dosis y metas terapéuticas</h4>
+              <ul>
+                <li>En IDP, el objetivo es mantener niveles séricos de IgG <strong>&gt;500 mg/dL</strong> (y preferiblemente &gt;700–800 mg/dL en pacientes con bronquiectasias o infecciones frecuentes).</li>
+                <li>Se miden niveles de IgG (valle) antes de la siguiente infusión; si persisten infecciones, se aumenta dosis o se acorta intervalo.</li>
+                <li>En enfermedades autoinmunes, se titula según respuesta clínica y no por niveles séricos.</li>
+                <li>En pacientes obesos, se recomienda usar <strong>peso ideal o ajustado</strong> para calcular la dosis de mantenimiento en IDP.</li>
+              </ul>
+            </div>
+
+            <!-- CALCULADORA -->
+            <h4 id="calc-anchor">&#9881;&#65039; Calculadora interactiva de dosis de IVIG</h4>
+            <div class="calc-wrapper">
+              <div class="calc-header">
+                <div class="calc-header-icon">&#129514;</div>
+                <div>
+                  <h3>Calculadora de Dosis — IVIG</h3>
+                  <p>Seleccione la indicación y el peso del paciente para obtener la dosis estimada</p>
+                </div>
+              </div>
+
+              <div class="calc-grid">
+                <div class="calc-field">
+                  <label for="peso">Peso del paciente (kg)</label>
+                  <input type="number" id="peso" min="1" max="300" placeholder="Ej. 70" step="0.1" />
+                </div>
+                <div class="calc-field">
+                  <label for="indicacion">Indicación / Enfermedad</label>
+                  <select id="indicacion">
+                    <option value="">— Seleccionar indicación —</option>
+                    <optgroup label="Inmunodeficiencias">
+                      <option value="idp_mantenimiento">Inmunodeficiencia primaria — mantenimiento (400 mg/kg c/4 sem)</option>
+                      <option value="idp_alta">IDP con infecciones frecuentes (600 mg/kg c/3–4 sem)</option>
+                      <option value="ids">Inmunodeficiencia secundaria severa (400 mg/kg c/4 sem)</option>
+                    </optgroup>
+                    <optgroup label="Autoinmune / Inflamatoria">
+                      <option value="kawasaki">Enfermedad de Kawasaki (2 g/kg dosis única)</option>
+                      <option value="pti">PTI aguda (1 g/kg/día × 2 días)</option>
+                      <option value="sgb">Síndrome de Guillain-Barré (0.4 g/kg/día × 5 días)</option>
+                      <option value="cidp_carga">CIDP — dosis de carga (2 g/kg)</option>
+                      <option value="cidp_mante">CIDP — mantenimiento (1 g/kg c/3 sem)</option>
+                      <option value="miastenia">Miastenia gravis exacerbación (0.4 g/kg/día × 5 días)</option>
+                      <option value="dermato">Dermatomiositis / Polimiositis (0.4 g/kg/día × 5 días)</option>
+                    </optgroup>
+                    <optgroup label="Otros">
+                      <option value="sepsis_neo">Sepsis neonatal — coadyuvante (750 mg/kg)</option>
+                      <option value="tmo">Trasplante MO — profilaxis (400 mg/kg)</option>
+                    </optgroup>
+                  </select>
+                </div>
+                <div class="calc-field">
+                  <label for="concentracion">Concentración del producto</label>
+                  <select id="concentracion">
+                    <option value="10">10% (100 mg/mL)</option>
+                    <option value="5">5% (50 mg/mL)</option>
+                  </select>
+                </div>
+                <div class="calc-field">
+                  <label for="tipo_peso">Tipo de peso a usar</label>
+                  <select id="tipo_peso">
+                    <option value="real">Peso real</option>
+                    <option value="ideal">Peso ideal (para obesidad)</option>
+                  </select>
+                </div>
+              </div>
+
+              <button class="calc-btn" onclick="calcularDosis()">&#9881;&#65039; Calcular dosis</button>
+
+              <div class="calc-result" id="calc-result">
+                <h4>&#128203; Resultado del cálculo</h4>
+                <div class="calc-result-grid" id="calc-grid">
+                  <!-- Filled by JS -->
+                </div>
+                <p class="calc-note" id="calc-note"></p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ───── 6. EFECTOS ADVERSOS ───── -->
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggle(this)" aria-expanded="false">
+          <div class="acc-num">6</div>
+          <div class="acc-title">
+            <h3>Efectos Adversos y Cómo Prevenirlos</h3>
+            <p>Reacciones leves, moderadas, graves y estrategias de manejo</p>
+          </div>
+          <span class="acc-arrow">&#8964;</span>
+        </button>
+        <div class="acc-body">
+          <div class="content-prose">
+
+            <div class="ae-grid">
+
+              <div class="ae-card leve">
+                <div class="ae-badge">Leve · Frecuente (10–20%)</div>
+                <h4>Reacciones leves</h4>
+                <ul>
+                  <li>Cefalea (más frecuente, 6–20%)</li>
+                  <li>Fiebre y escalofríos</li>
+                  <li>Náuseas y vómito</li>
+                  <li>Mialgias / artralgias</li>
+                  <li>Rubor facial (flushing)</li>
+                  <li>Fatiga y malestar general</li>
+                  <li>Reacciones locales (SC/IM: eritema, induración)</li>
+                </ul>
+              </div>
+
+              <div class="ae-card moderado">
+                <div class="ae-badge">Moderado · Poco frecuente (2–5%)</div>
+                <h4>Reacciones moderadas</h4>
+                <ul>
+                  <li>Hipertensión o hipotensión arterial</li>
+                  <li>Taquicardia</li>
+                  <li>Disnea leve / sibilancias</li>
+                  <li>Urticaria y prurito generalizado</li>
+                  <li>Meningitis aséptica (relacionada con dosis)</li>
+                  <li>Hemólisis (IgG anti-A, anti-B — riesgo en grupo A, B, AB)</li>
+                  <li>Elevación transitoria de creatinina</li>
+                </ul>
+              </div>
+
+              <div class="ae-card grave">
+                <div class="ae-badge">Grave · Raro (&lt;1%)</div>
+                <h4>Reacciones graves</h4>
+                <ul>
+                  <li><strong>Anafilaxia:</strong> riesgo elevado en pacientes con deficiencia selectiva de IgA (anti-IgA IgE)</li>
+                  <li><strong>Lesión renal aguda (IRA)</strong> por sucrose (preparados con sacarosa como estabilizante)</li>
+                  <li><strong>Trombosis:</strong> arterial y venosa — mayor riesgo en hipercoagulabilidad basal</li>
+                  <li><strong>TRALI</strong> (lesión pulmonar aguda relacionada con transfusión)</li>
+                  <li><strong>TACO</strong> (sobrecarga circulatoria asociada a transfusión)</li>
+                  <li>Hemólisis grave con insuficiencia renal</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="prevention-box">
+              <h4>&#128737;&#65039; Estrategias de prevención y manejo</h4>
+              <ul>
+                <li><strong>Velocidad de infusión:</strong> comenzar siempre lenta (0.5–1 mg/kg/min); incrementar gradualmente solo si tolerancia adecuada. La mayoría de las reacciones son dependientes de velocidad.</li>
+                <li><strong>Premedicación:</strong> paracetamol ± difenhidramina ± hidrocortisona 30 min antes en pacientes con antecedente de reacciones previas o en la primera infusión.</li>
+                <li><strong>Hidratación:</strong> mantener buena hidratación oral o parenteral antes y durante la infusión para prevenir cefalea y nefrotoxicidad.</li>
+                <li><strong>Deficiencia de IgA:</strong> documentar niveles de IgA antes de la primera dosis; usar preparados con contenido ultra-bajo de IgA (ej. Privigen, Panzyga) si IgA &lt;7 mg/dL.</li>
+                <li><strong>Riesgo trombótico:</strong> evaluar factores de riesgo cardiovascular; considerar miniaturización de dosis (dosis divididas en varios días); usar preparados sin osmolaridad extrema; evitar restricción hídrica excesiva.</li>
+                <li><strong>Sucrose:</strong> evitar preparados con sacarosa (ej. Sandoglobulina® antigua formulación) en pacientes con nefropatía preexistente o diabetes.</li>
+                <li><strong>Monitorización:</strong> signos vitales basales y periódicos durante infusión; tener equipo de emergencia disponible (adrenalina, corticoides IV, antihistamínicos).</li>
+                <li><strong>Ante reacción leve:</strong> reducir velocidad o detener temporalmente; premedicar para infusiones futuras.</li>
+                <li><strong>Ante anafilaxia:</strong> suspender infusión inmediatamente; adrenalina 0.3–0.5 mg i.m.; soporte respiratorio y hemodinámico.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ───── 7. MARCAS EN MÉXICO ───── -->
+      <div class="acc-item" id="marcas">
+        <button class="acc-trigger" onclick="toggle(this)" aria-expanded="false">
+          <div class="acc-num">7</div>
+          <div class="acc-title">
+            <h3>Marcas de Inmunoglobulinas en México e Internacionalmente</h3>
+            <p>Productos disponibles, concentraciones, fabricantes y regulación COFEPRIS</p>
+          </div>
+          <span class="acc-arrow">&#8964;</span>
+        </button>
+        <div class="acc-body">
+          <div class="content-prose">
+
+            <div class="tabs">
+              <button class="tab-btn active" onclick="activateTab(this,'tab-mx')">&#127474;&#127485; Disponibles en México</button>
+              <button class="tab-btn" onclick="activateTab(this,'tab-int')">&#127758; Internacionales</button>
+              <button class="tab-btn" onclick="activateTab(this,'tab-reg')">&#128204; Regulación COFEPRIS</button>
+            </div>
+
+            <!-- Tab: México -->
+            <div class="tab-panel active" id="tab-mx">
+              <div class="brand-table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Marca comercial</th>
+                      <th>Fabricante</th>
+                      <th>Concentración</th>
+                      <th>Presentaciones</th>
+                      <th>Estabilizante</th>
+                      <th>IgA</th>
+                      <th>Vía</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Flebogamma® DIF</strong> <span class="badge-mx">MX</span></td>
+                      <td>Grifols (España)</td>
+                      <td>5% y 10%</td>
+                      <td>2.5 g / 5 g / 10 g / 20 g</td>
+                      <td>D-sorbitol</td>
+                      <td>&lt;50 μg/mL</td>
+                      <td><span class="badge-sc">IV</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Gamunex®-C</strong> <span class="badge-mx">MX</span></td>
+                      <td>Grifols (EE.UU.)</td>
+                      <td>10%</td>
+                      <td>1 g / 2.5 g / 5 g / 10 g / 20 g</td>
+                      <td>Glicina</td>
+                      <td>46 μg/mL</td>
+                      <td><span class="badge-sc">IV / SC</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Privigen®</strong> <span class="badge-mx">MX</span></td>
+                      <td>CSL Behring (Suiza)</td>
+                      <td>10%</td>
+                      <td>5 g / 10 g / 20 g / 40 g</td>
+                      <td>L-prolina</td>
+                      <td>&lt;25 μg/mL</td>
+                      <td><span class="badge-sc">IV</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Kiovig®</strong> <span class="badge-mx">MX</span></td>
+                      <td>Takeda (anteriormente Baxter)</td>
+                      <td>10%</td>
+                      <td>2.5 g / 5 g / 10 g / 20 g / 30 g</td>
+                      <td>Glicina</td>
+                      <td>37 μg/mL</td>
+                      <td><span class="badge-sc">IV</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Octagam®</strong> <span class="badge-mx">MX</span></td>
+                      <td>Octapharma (Suiza)</td>
+                      <td>5% y 10%</td>
+                      <td>2.5 g / 5 g / 10 g / 20 g / 25 g</td>
+                      <td>Maltosa / GDH (10%: sin maltosa)</td>
+                      <td>&lt;200 μg/mL (5%) &nbsp;/&nbsp; &lt;100 μg/mL (10%)</td>
+                      <td><span class="badge-sc">IV</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Hizentra®</strong> <span class="badge-mx">MX</span></td>
+                      <td>CSL Behring (Suiza)</td>
+                      <td>20%</td>
+                      <td>1 g / 2 g / 4 g / 10 g</td>
+                      <td>L-prolina</td>
+                      <td>&lt;50 μg/mL</td>
+                      <td><span class="badge-sc">SC</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Gammaplex®</strong> <span class="badge-mx">MX</span></td>
+                      <td>Bio Products Lab (RU)</td>
+                      <td>5% y 10%</td>
+                      <td>2.5 g / 5 g / 10 g / 20 g</td>
+                      <td>Glicina / sorbitol</td>
+                      <td>&lt;10 μg/mL</td>
+                      <td><span class="badge-sc">IV</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="info-box">
+                <h4>&#128181; Costos aproximados en México (2024)</h4>
+                <ul>
+                  <li>El costo varía entre <strong>$3,000 y $8,000 MXN por gramo</strong> en el sector privado, dependiendo de la marca y la presentación.</li>
+                  <li>A través del IMSS, ISSSTE y programas de Seguro Popular/INSABI, los costos son cubiertos total o parcialmente para indicaciones aprobadas en el cuadro básico.</li>
+                  <li>Una dosis estándar de mantenimiento para un paciente de 60 kg con IDP (400 mg/kg = 24 g) puede costar entre $72,000 y $192,000 MXN/año en sector privado.</li>
+                  <li>El Cuadro Básico del IMSS incluye principalmente <strong>Octagam® y Gamunex®</strong> para indicaciones de primer nivel.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Tab: Internacional -->
+            <div class="tab-panel" id="tab-int">
+              <div class="brand-table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Marca</th>
+                      <th>Fabricante</th>
+                      <th>País</th>
+                      <th>Concentración</th>
+                      <th>Características especiales</th>
+                      <th>Disponible MX</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Panzyga®</strong></td>
+                      <td>Octapharma</td>
+                      <td>Suiza / UE</td>
+                      <td>10%</td>
+                      <td>Ultra baja IgA (&lt;20 μg/mL); apta para def. IgA</td>
+                      <td>No (pendiente COFEPRIS)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Cuvitru®</strong></td>
+                      <td>Takeda</td>
+                      <td>EE.UU. / UE</td>
+                      <td>20%</td>
+                      <td>SCIG de alta concentración; uso domiciliario</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Xembify®</strong></td>
+                      <td>Grifols</td>
+                      <td>EE.UU.</td>
+                      <td>20%</td>
+                      <td>SCIG 20%; pH neutro; poca IgA</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Cutaquig®</strong></td>
+                      <td>Octapharma</td>
+                      <td>EE.UU. / Canadá</td>
+                      <td>16.5%</td>
+                      <td>SCIG; aprobado FDA para IDP</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><strong>HyQvia®</strong></td>
+                      <td>Takeda</td>
+                      <td>EE.UU. / UE</td>
+                      <td>10%</td>
+                      <td>SCIG facilitado con hialuronidasa recombinante; infusión mensual</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Bivigam®</strong></td>
+                      <td>ADMA Biologics</td>
+                      <td>EE.UU.</td>
+                      <td>10%</td>
+                      <td>Enriquecida en anticuerpos anti-S. pneumoniae</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Gammagard® Liquid</strong></td>
+                      <td>Takeda</td>
+                      <td>EE.UU.</td>
+                      <td>10%</td>
+                      <td>Apta IV/SC; sin azúcares; muy baja IgA</td>
+                      <td>No (versión Kiovig® aprobada)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Carimune® NF</strong></td>
+                      <td>CSL Behring</td>
+                      <td>EE.UU. / Suiza</td>
+                      <td>Liofilizada (reconstituible 3–12%)</td>
+                      <td>Histórica; mayor tasa de eventos adversos; en desuso</td>
+                      <td>No</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab: Regulación -->
+            <div class="tab-panel" id="tab-reg">
+              <div class="content-prose">
+                <h4>&#128204; Marco regulatorio en México — COFEPRIS</h4>
+                <p>
+                  En México, todos los productos de inmunoglobulinas deben contar con el <strong>registro sanitario emitido por COFEPRIS</strong> (Comisión Federal para la Protección contra Riesgos Sanitarios), equivalente a la FDA en EE.UU. o EMA en Europa.
+                </p>
+
+                <div class="steps">
+                  <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                      <strong>Registro sanitario ante COFEPRIS</strong>
+                      <span>Obligatorio para comercialización. Requiere presentar dossier completo: fabricación, control de calidad, seguridad viral, estudios clínicos de eficacia y seguridad, y equivalencia terapéutica. El proceso puede tomar 12–36 meses.</span>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                      <strong>Cadena de frío y buenas prácticas de fabricación (BPF)</strong>
+                      <span>Los fabricantes deben demostrar cumplimiento con BPF internacionales (OMS, ICH). Los productos deben mantenerse a 2–8 °C durante toda la cadena de distribución.</span>
+                    </div>
+                  </div>
+                  <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                      <strong>Cuadro básico del IMSS / ISSSTE</strong>
+                      <span>No todos los productos aprobados por COFEPRIS están incluidos en el cuadro básico de instituciones públicas. La inclusión depende de evaluaciones de farmacoeconomía, seguridad de suministro y negociaciones de precio con el fabricante.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="warning-box">
+                  <h4>&#9888;&#65039; ¿Por qué no se usan todas las marcas en México?</h4>
+                  <p>Existen múltiples razones por las que muchos productos aprobados internacionalmente no están disponibles en México:</p>
+                  <ul style="padding-left:16px; margin-top: 8px;">
+                    <li style="margin-bottom:5px; font-size:0.83rem; color:var(--texto-suave);"><strong>Sin registro COFEPRIS:</strong> la marca no ha iniciado o completado el trámite de registro sanitario en México, que es costoso y prolongado.</li>
+                    <li style="margin-bottom:5px; font-size:0.83rem; color:var(--texto-suave);"><strong>Estrategia comercial:</strong> el fabricante evalúa el volumen de mercado y decide no ingresar al mercado mexicano si el retorno de inversión no es suficiente.</li>
+                    <li style="margin-bottom:5px; font-size:0.83rem; color:var(--texto-suave);"><strong>Disponibilidad global limitada:</strong> algunos productos como HyQvia® o Cuvitru® tienen alta demanda en EE.UU./Europa y el fabricante prioriza esos mercados.</li>
+                    <li style="margin-bottom:5px; font-size:0.83rem; color:var(--texto-suave);"><strong>Precio:</strong> COFEPRIS y las instituciones públicas negocian precios; algunos fabricantes no aceptan los precios de referencia internacionales establecidos por el IMSS.</li>
+                    <li style="margin-bottom:5px; font-size:0.83rem; color:var(--texto-suave);"><strong>Formulación específica:</strong> algunos productos como HyQvia® requieren co-administración con hialuronidasa recombinante, lo que complejiza la aprobación regulatoria combinada.</li>
+                    <li style="margin-bottom:5px; font-size:0.83rem; color:var(--texto-suave);"><strong>Retiro voluntario / obsolescencia:</strong> algunos productos más antiguos (Carimune® en formulación con sacarosa) fueron retirados por mayor tasa de efectos adversos o reemplazados por versiones mejoradas.</li>
+                  </ul>
+                </div>
+
+                <div class="info-box" style="margin-top:16px;">
+                  <h4>&#128161; Uso compasivo y acceso ampliado</h4>
+                  <p>En casos de necesidad médica urgente y cuando el producto indicado no está disponible comercialmente en México, COFEPRIS permite solicitar <strong>importación bajo permiso especial de uso compasivo</strong>, previa justificación clínica del médico tratante y aprobación institucional.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /accordion -->
+  </section>
+</main>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <p><strong>Recurso de Consulta Clínica — Inmunodeficiencias e Inmunoglobulinas Intravenosas</strong></p>
+  <p>Información basada en guías clínicas internacionales: ESID, IPOPI, IDF, JMF · Actualización 2024–2025</p>
+  <p style="margin-top:14px; font-size:0.77rem; opacity:0.55;">
+    Esta herramienta es exclusivamente para uso profesional médico como referencia de consulta rápida.
+    No sustituye el juicio clínico, los protocolos institucionales ni la ficha técnica oficial de cada producto.
+    Siempre verifique con las fuentes bibliográficas oficiales antes de tomar decisiones terapéuticas.
+  </p>
+</footer>
+
+<!-- Scroll to top -->
+<button id="scrollTop" title="Volver arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<!-- ══════════════ SCRIPTS ══════════════ -->
+<script>
+  /* ── ACCORDION ── */
+  function toggle(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.acc-trigger').forEach(b => {
+      b.classList.remove('open');
+      b.setAttribute('aria-expanded','false');
+    });
+    document.querySelectorAll('.acc-body').forEach(b => b.classList.remove('open'));
+    // Open clicked
+    if (!isOpen) {
+      btn.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      body.classList.add('open');
+    }
+  }
+
+  /* ── TABS ── */
+  function activateTab(btn, panelId) {
+    const container = btn.closest('.acc-body') || btn.closest('main');
+    const tabBtns = btn.closest('.tabs').querySelectorAll('.tab-btn');
+    const allPanels = document.querySelectorAll('.tab-panel');
+    tabBtns.forEach(b => b.classList.remove('active'));
+    allPanels.forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(panelId).classList.add('active');
+  }
+
+  /* ── CALCULADORA DE DOSIS ── */
+  const doseData = {
+    idp_mantenimiento: {
+      label: 'IDP — Mantenimiento',
+      mgKg: 400,
+      dias: 1,
+      frecuencia: 'Cada 4 semanas',
+      nota: 'Meta: nivel sérico de IgG > 500 mg/dL (valle). Ajustar dosis si persisten infecciones o niveles subóptimos. Nivel objetivo preferible: 700–800 mg/dL en pacientes con complicaciones pulmonares.'
+    },
+    idp_alta: {
+      label: 'IDP — Dosis alta (infecciones frecuentes)',
+      mgKg: 600,
+      dias: 1,
+      frecuencia: 'Cada 3–4 semanas',
+      nota: 'Indicada cuando con 400 mg/kg no se alcanzan niveles objetivo o el paciente continúa con infecciones bacterianas recurrentes. Evaluar nivel sérico de IgG antes de cada infusión.'
+    },
+    ids: {
+      label: 'Inmunodeficiencia secundaria severa',
+      mgKg: 400,
+      dias: 1,
+      frecuencia: 'Cada 3–4 semanas',
+      nota: 'Indicada en hipogammaglobulinemia secundaria a hemopatías malignas, trasplante o inmunosupresión severa con infecciones recurrentes.'
+    },
+    kawasaki: {
+      label: 'Enfermedad de Kawasaki',
+      mgKg: 2000,
+      dias: 1,
+      frecuencia: 'Dosis única; repetir si fiebre persiste >36h',
+      nota: 'Administrar dentro de los primeros 10 días del inicio de la fiebre (idealmente días 5–9). Siempre asociar con ácido acetilsalicílico (80–100 mg/kg/día durante fase aguda). Segunda dosis si no hay respuesta en 36 h.'
+    },
+    pti: {
+      label: 'PTI aguda',
+      mgKg: 1000,
+      dias: 2,
+      frecuencia: 'Ciclo único; puede repetirse si recaída',
+      nota: 'Opción: 1 g/kg dosis única en casos leves. Dosis de 1 g/kg/día × 2 días logra respuesta más rápida. Monitorizar hemólisis (sobre todo en grupos A, B, AB) y función renal post-infusión.'
+    },
+    sgb: {
+      label: 'Síndrome de Guillain-Barré',
+      mgKg: 400,
+      dias: 5,
+      frecuencia: 'Ciclo único en fase aguda (puede repetir)',
+      nota: 'Alternativa: 1 g/kg/día × 2 días (misma eficacia). Iniciar tan pronto como sea posible tras el diagnóstico. Eficacia equivalente a plasmaféresis. No combinar ambos tratamientos (sin beneficio adicional). Vigilar velocidad de infusión en pacientes disautonómicos.'
+    },
+    cidp_carga: {
+      label: 'CIDP — Dosis de carga',
+      mgKg: 2000,
+      dias: 2,
+      frecuencia: 'Una sola vez al inicio; luego mantenimiento',
+      nota: 'La dosis de carga se divide habitualmente en 2 días (1 g/kg/día × 2 días). Evaluar respuesta a las 4–8 semanas. Si respuesta adecuada, continuar con dosis de mantenimiento.'
+    },
+    cidp_mante: {
+      label: 'CIDP — Mantenimiento',
+      mgKg: 1000,
+      dias: 1,
+      frecuencia: 'Cada 3 semanas (ajustar según respuesta)',
+      nota: 'Ajustar dosis e intervalo según respuesta clínica (escala INCAT, fuerza muscular). Algunos pacientes pueden espaciar hasta cada 4–6 semanas. Evaluar reducción de dosis una vez alcanzada la remisión.'
+    },
+    miastenia: {
+      label: 'Miastenia gravis (exacerbación/crisis)',
+      mgKg: 400,
+      dias: 5,
+      frecuencia: 'Ciclo único; repetir si recaída severa',
+      nota: 'Útil como puente terapéutico antes de timectomía o para exacerbaciones agudas. Efecto clínico observable a los 7–14 días. Alternativa a plasmaféresis cuando ésta no está disponible o está contraindicada.'
+    },
+    dermato: {
+      label: 'Dermatomiositis / Polimiositis',
+      mgKg: 400,
+      dias: 5,
+      frecuencia: 'Cada 4–6 semanas según respuesta',
+      nota: 'Usar como adyuvante cuando los inmunosupresores convencionales son insuficientes o contraindicados. Respuesta lenta (semanas a meses). Monitorizar CK, fuerza muscular y evaluación funcional.'
+    },
+    sepsis_neo: {
+      label: 'Sepsis neonatal (coadyuvante)',
+      mgKg: 750,
+      dias: 1,
+      frecuencia: '1–3 dosis según respuesta',
+      nota: 'Uso discutido en la literatura actual (ensayo INIS no demostró beneficio significativo). Considerar solo en casos seleccionados de sepsis bacteriana neonatal con hipogammaglobulinemia documentada. Usar peso neonatal real.'
+    },
+    tmo: {
+      label: 'Trasplante de MO — Profilaxis',
+      mgKg: 400,
+      dias: 1,
+      frecuencia: 'Semanal / quincenal según protocolo institucional',
+      nota: 'Indicada en el período post-trasplante temprano (primeros 100 días) en pacientes con hipogammaglobulinemia severa. El protocolo varía según el tipo de trasplante (alogénico vs. autólogo) y la institución.'
+    }
+  };
+
+  function calcularDosis() {
+    const peso      = parseFloat(document.getElementById('peso').value);
+    const ind       = document.getElementById('indicacion').value;
+    const conc      = parseInt(document.getElementById('concentracion').value);
+    const tipoPeso  = document.getElementById('tipo_peso').value;
+    const resultDiv = document.getElementById('calc-result');
+    const grid      = document.getElementById('calc-grid');
+    const noteEl    = document.getElementById('calc-note');
+
+    if (!peso || peso <= 0 || !ind) {
+      alert('Por favor ingrese el peso del paciente y seleccione una indicación.');
+      return;
+    }
+
+    // Peso ideal si corresponde (fórmula Devine)
+    let pesoCalculo = peso;
+    let pesoNota = '';
+    if (tipoPeso === 'ideal' && peso > 0) {
+      // Fórmula simplificada de peso ideal (hombre referencia)
+      // En la práctica clínica, el médico conoce el peso ideal del paciente
+      pesoNota = ' (Nota: se usó el peso ingresado. En obesidad, calcule el peso ideal con la fórmula de Devine y vuelva a ingresar ese valor.)';
+    }
+
+    const d         = doseData[ind];
+    const mgKgTotal = d.mgKg;      // mg/kg (dosis diaria)
+    const dias      = d.dias;
+    const concMgMl  = conc === 10 ? 100 : 50;  // mg/mL
+
+    // Cálculos
+    const doseDiariaMg    = pesoCalculo * mgKgTotal;       // mg por día de infusión
+    const doseTotalMg     = doseDiariaMg * dias;           // mg totales del ciclo
+    const volDiarioMl     = doseDiariaMg / concMgMl;       // mL por día
+    const volTotalMl      = doseTotalMg / concMgMl;        // mL totales del ciclo
+    const doseDiariag     = doseDiariaMg / 1000;
+    const doseTotalg      = doseTotalMg / 1000;
+
+    // Fracciones por día
+    const frascos5g  = Math.ceil(doseDiariag / 5);
+    const frascos10g = Math.ceil(doseDiariag / 10);
+
+    grid.innerHTML = `
+      <div class="calc-result-item">
+        <label>Indicación</label>
+        <div class="val" style="font-size:0.95rem; line-height:1.3;">${d.label}</div>
+      </div>
+      <div class="calc-result-item">
+        <label>Dosis por día de infusión</label>
+        <div class="val">${doseDiariag.toFixed(1)} <span class="unit">g/día</span></div>
+        <div style="font-size:0.72rem; opacity:0.65; margin-top:2px;">(${doseDiariaMg.toFixed(0)} mg · ${mgKgTotal} mg/kg)</div>
+      </div>
+      <div class="calc-result-item">
+        <label>Días de infusión del ciclo</label>
+        <div class="val">${dias} <span class="unit">día${dias>1?'s':''}</span></div>
+      </div>
+      <div class="calc-result-item">
+        <label>Dosis total del ciclo</label>
+        <div class="val">${doseTotalg.toFixed(1)} <span class="unit">g totales</span></div>
+        <div style="font-size:0.72rem; opacity:0.65; margin-top:2px;">(${(doseTotalMg/1000).toFixed(1)} g · ${doseTotalMg.toFixed(0)} mg)</div>
+      </div>
+      <div class="calc-result-item">
+        <label>Volumen a infundir/día (${conc}%)</label>
+        <div class="val">${volDiarioMl.toFixed(0)} <span class="unit">mL</span></div>
+        <div style="font-size:0.72rem; opacity:0.65; margin-top:2px;">(${concMgMl} mg/mL)</div>
+      </div>
+      <div class="calc-result-item">
+        <label>Fracciones sugeridas/día</label>
+        <div class="val" style="font-size:0.9rem; line-height:1.4;">
+          ${frascos5g} fr. × 5 g<br>
+          <span style="font-size:0.75rem; opacity:0.7;">ó ${frascos10g} fr. × 10 g</span>
+        </div>
+      </div>
+      <div class="calc-result-item">
+        <label>Frecuencia</label>
+        <div class="val" style="font-size:0.88rem; line-height:1.3;">${d.frecuencia}</div>
+      </div>
+    `;
+
+    noteEl.innerHTML = `<strong>&#9888; Nota clínica:</strong> ${d.nota}${pesoNota}<br><br>
+      <strong>&#128203; Recordatorio:</strong> Este cálculo es orientativo. La dosis final debe individualizarse según respuesta clínica, niveles séricos de IgG (en IDP), tolerancia y criterio del especialista. Verifique siempre la ficha técnica del producto a utilizar.`;
+
+    resultDiv.classList.add('show');
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* ── SCROLL TO TOP ── */
+  const stBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    stBtn.classList.toggle('show', window.scrollY > 400);
+  });
+
+  /* ── ACTIVE NAV LINK ── */
+  const navLinks = document.querySelectorAll('nav a');
+  const sections = document.querySelectorAll('section[id]');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
+</body>
+</html>
